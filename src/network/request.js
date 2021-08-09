@@ -1,5 +1,20 @@
 import axios from "axios";
 
+//使用axios的拦截器
+//这个是
+// axios.interceptors.request.use(config => {
+//   console.log("全局请求成功拦截")
+//   return config
+// }, err => {
+//   console.log("全局请求失败拦截")
+// });
+// axios.interceptors.response.use(res => {
+//   console.log("全局响应成功拦截")
+//   return res
+// }, err => {
+//   console.log("全局响应失败拦截")
+// });
+
 // export function request(config, success, failure) {
 //   const instance = axios.create({
 //     baseURL: "http://wthrcdn.etouch.cn/weather_mini",
@@ -49,7 +64,7 @@ export function request(config) {
 
   //配置axios的请求拦截
   instance.interceptors.request.use(config => {
-    console.log("请求拦截")
+    console.log("请求成功拦截")
 
     //拦截成功以后，需要把对象返回，否则后续的请求就拿不到config对象了
     return config
@@ -59,28 +74,15 @@ export function request(config) {
 
   //配置axios的相应拦截
   instance.interceptors.response.use(res => {
-    console.log("响应拦截")
+    console.log("响应成功拦截")
 
     //这里可以对数据进行封装转化操作
     //然后只需要将data返回即可
     return res.data
   }, err => {
-    console.log("响应出错拦截")
+    console.log("响应失败拦截")
   })
   return instance(config)
 }
 
-//使用axios的拦截器
-//这个是
-axios.interceptors.request.use(config => {
-  console.log("全局请求成功拦截")
-  return config
-}, err => {
-  console.log("全局请求失败拦截")
-});
-axios.interceptors.response.use(res => {
-  console.log("全局响应成功拦截")
-  return res
-}, err => {
-  console.log("全局响应失败拦截")
-});
+

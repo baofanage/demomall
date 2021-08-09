@@ -4,11 +4,11 @@
   </div>
 </template>
 
-<script>
+<scri>
   export default {
     name: "TabBar"
   }
-</script>
+</scri pt>
 
 <style scoped>
   .tab-bar {
