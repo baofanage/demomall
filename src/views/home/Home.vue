@@ -7,6 +7,11 @@
       @swiperLoaded="swiperLoaded"
     ></HomeSwiper>
     <RecommendView :recommends="recommends"></RecommendView>
+    <FeatureView></FeatureView>
+    <TabControl :titles="titles" class="tab-control"></TabControl>
+    <ol>
+      <li v-for="item in products">列表{{ item }}</li>
+    </ol>
   </div>
 </template>
 
@@ -14,6 +19,8 @@
 import NavBar from "components/common/navbar/NavBar";
 import HomeSwiper from "./childComps/HomeSwiper";
 import RecommendView from "./childComps/RecommendView.vue";
+import FeatureView from "./childComps/FeatureView.vue";
+import TabControl from "components/content/tabControl/TabControl.vue";
 import { getBannerData } from "network/home";
 
 export default {
@@ -22,30 +29,83 @@ export default {
     NavBar,
     HomeSwiper,
     RecommendView,
+    FeatureView,
+    TabControl,
   },
   data() {
     return {
       banners: [],
       recommends: [],
+      titles: [],
+      products: [],
+      goods:{
+        'pop':{page:0,list:[]},
+        'news':{page:0,list:[]},
+        'sell':{page:0,list:[]},
+      }
     };
   },
   created() {
     getBannerData().then((res) => {
       console.log(res);
-      for (var i = 0; i < 4; i++) {
-        this.banners.push({
-          link: "www.baidu.com",
-          image:
-            "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.miyanlife.com%2Fmnt%2Ftimg%2F190812%2F11063A5L-6.jpg&refer=http%3A%2F%2Fimg.miyanlife.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1631070579&t=6ba0de2ed9ffe45c876f057cda6cd88e",
-        });
-        this.recommends.push({
-          title: "秋季金品",
-          link: "www.baidu.com",
-          image:
-            "https://nimg.ws.126.net/?url=http%3A%2F%2Fdingyue.ws.126.net%2F2021%2F0809%2F3afc0415j00qxjwm9000oc000cl00clg.jpg&thumbnail=650x2147483647&quality=80&type=jpg",
-        });
+
+      //banner数据
+      this.banners.push({
+        link: "https://www.baidu.com",
+        image: require("assets/img/banner/banner2.jpg"),
+      });
+      this.banners.push({
+        link: "https://www.baidu.com",
+        image: require("assets/img/banner/banner3.jpg"),
+      });
+      this.banners.push({
+        link: "https://www.baidu.com",
+        image: require("assets/img/banner/banner4.jpg"),
+      });
+      this.banners.push({
+        link: "https://www.baidu.com",
+        image: require("assets/img/banner/banner5.jpg"),
+      });
+      this.banners.push({
+        link: "https://www.baidu.com",
+        image: require("assets/img/banner/banner6.jpg"),
+      });
+
+      this.recommends.push({
+        title: "秋季金品",
+        link: "https://www.baidu.com",
+        image: require("assets/img/banner/banner4.jpg"),
+      });
+      this.recommends.push({
+        title: "限时秒杀",
+        link: "https://www.baidu.com",
+        image: require("assets/img/banner/banner5.jpg"),
+      });
+      this.recommends.push({
+        title: "折扣优惠",
+        link: "https://www.baidu.com",
+        image: require("assets/img/banner/banner6.jpg"),
+      });
+      this.recommends.push({
+        title: "当下流行",
+        link: "https://www.baidu.com",
+        image: require("assets/img/banner/banner7.jpg"),
+      });
+
+      this.titles.push("流行");
+      this.titles.push("新款");
+      this.titles.push("精选");
+
+      for (var i = 1; i < 100; i++) {
+        this.products.push(i);
       }
     });
+  },
+
+  methods: {
+    swiperLoaded() {
+      //this.tabOffsetTop = this.$refs.contentTab.$el.offsetTop;
+    },
   },
 };
 </script>
@@ -64,8 +124,8 @@ export default {
 }
 
 .tab-control {
-  position: relative;
-  z-index: 9;
+  position: sticky;
+  top: 44px;
 }
 
 .content {
